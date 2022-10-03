@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- needs a form .... from a query gets all labels and artists so that the album can get the artist and label id for creating the record -->
+<body>
+    <div>
+        <form action = '/add_album', method = 'post'>
+            <label for = 'title'>Album Title</label>
+            <input type = 'text' name = 'title'>
+            <label for = 'format'>Format</label>
+            <input type = 'text' name = 'format'>
+            <label for ='duration'>Duration in HH:MM:SS</label> 
+            <input type ="text" name = 'duration' value = "00:00:00">
+            <label for = 'date_issued'>Date Issued</label>
+            <input type = 'date' name = 'date_issued'>
+            <label for = 'reissue_date'>Reissue Date</label>
+            <input type = 'date' name = 'reissue_date'>
+            <label for = 'artist_id'>Artist Name (required)</label>
+            <select name = 'artist_id'>
+                {%for x in artists%}
+                <option value = '{{x.id}}'>{{x.artist_name}} {{x.id}}</option>
+                {%endfor%}
+            </select>
+            <label for = 'label_id'>Label Name (required)</label>
+            <select name = 'label_id'>
+
+                <option value = '1'>Rats Pizza Records</option>
+
+            </select>
+            <input type = 'submit'>
+
+
+        </form>
+
+    </div>
+    
+</body>
+</html>

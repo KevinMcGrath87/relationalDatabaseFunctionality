@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel ='stylesheet', href = 'static/style.css'>
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    {%for x in albums[0]%}
+                    <div> 
+                        <th><h3>{{x}} </h3></th>
+                    </div>
+                    {%endfor%}
+                </tr>
+            </thead>
+            <tbody>
+                {%for album in albums%}
+                <tr>
+                    <td>{{album['title']}}</td>
+                    <td>{{album['duration']}}</td>
+                    <td>{{album['format']}}</td>
+                    <td>{{album['date_issued']}}</td>
+                    <td>{{album['reissue_date']}}</td>
+                    <td>{{album['artist_name']}}</td>
+                    <td>{{album['label_name']}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <a href = '/albums_add'>add album</a>
+    </div>
+</body>
+</html>
