@@ -6,11 +6,9 @@
 
 .container {
     display: grid;
-    grid-template-columns:repeat(5, 3fr);
-    grid-template-rows: auto ;
+    grid-template-columns:repeat(5, auto);
     column-gap: 10px;
     row-gap: 10px;
-    margin-top:10px;
 }
 
 /* body{
@@ -19,18 +17,25 @@
     grid-template-rows: repeat(2, 2fr), 100px, repeat(2,2fr);
 } */
 
-.navbar {
-    display:grid;
-    grid-template-rows: auto;
-    background-color: aliceblue;
-}
 
 .title {
+    display: grid;
+    /* grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3,1fr); */
     background-color: rgb(251, 255, 0);
+    grid-column: span 2;
+    justify-content: center;
     border: 1px solid black;
 }
 
+.title h1{
+    grid-row: 2/3;
+
+
+}
+
 .grid-item {
+    height: 150px;
     display:grid;
     align-items: center;
     justify-items: center;
@@ -40,11 +45,13 @@
 }
 
 .grid-item-2 {
+    height: 150px;
     display:grid;
     align-items: center;
     /* padding:10px; */
     background-color: black;
     justify-items: left;
+    padding-left:10px
 }
 
 .grid-item-2 h1{
@@ -61,10 +68,27 @@ a {
     color:black;
 
 }
+.search-area {
+    display:grid;
+    grid-column: span 2;
+    align-items: center;
+    justify-items: center;
+    height: 150px;
+    background-color: coral;
+    border: 1px solid black;
+}
 
-.container .search-area {
-    display: grid;
-    grid-column: 2 / 5;
-    align-content: center;
 
+.form-item input{
+    width: 200px;
+}
+
+.artistlist{
+    display:grid ;
+    grid-template-columns: repeat(5,1fr);
+}
+
+.error1 {
+    color:red;
+    font-style: italic;
 }

@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel = "stylesheet" href = 'static/style.css'>
 </head>
 <body>
-    <div>
-        <nav>
-            <ul>
+    <div class = 'container'>
+            <ul class = 'artistlist'>
                 {%for artist in artists%}
-                <li>{{artist.artist_name}} {{artist.email}}</li>
-                <a href = '/albums_by_artist/{{artist.id}}'>Get albums by artist</a>
+                <li class = 'grid-item'>
+                    <h3>{{artist.artist_name}} {{artist.email}}</h3><a href = 'artist_albums/{{artist.id}}'>See albums by artist</a>
+                </li>
                 {%endfor%}
             </ul>
-        </nav>
     </div>
 </body>
 </html>

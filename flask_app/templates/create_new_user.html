@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href = 'static/style.css'
+</head>
+<body>
+    <h1>Users</h1>
+    <h2>create new user</h2>
+    {%with messages = get_flashed_messages(with_categories = true) %}
+        {%if messages %}
+            {% for category, message in messages %}
+                <p class = '{{category}}'>{{message}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    <form action = '/add_user' method = 'post'>
+        <label for = 'first_name'>first name</label>
+        <input type = 'text' name = 'first_name'>
+        <label for = 'last_name'>last name</label>
+        <input type = 'text' name = 'last_name'>
+        <label for = 'email'>email</label>
+        <input type = 'text' name = 'email'>
+        <label for = 'password'>password</label>
+        <input type = 'text' name = 'user_password'>
+        <input type = 'submit'>           
+    </form>
+</body>
+</html>

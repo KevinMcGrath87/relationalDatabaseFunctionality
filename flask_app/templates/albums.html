@@ -12,7 +12,7 @@
         <table>
             <thead>
                 <tr>
-                    {%for x in albums[0]%}
+                    {%for x in albums[0].__dict__%}
                     <div> 
                         <th><h3>{{x}} </h3></th>
                     </div>
@@ -22,6 +22,7 @@
             <tbody>
                 {%for album in albums%}
                 <tr>
+                    <td>{{album['id']}}</td>
                     <td>{{album['title']}}</td>
                     <td>{{album['duration']}}</td>
                     <td>{{album['format']}}</td>
@@ -33,7 +34,7 @@
                 {%endfor%}
             </tbody>
         </table>
-        <a href = '/albums_add'>add album</a>
+        <a href = '/albums_add' method = 'post'>add album</a>
     </div>
 </body>
 </html>

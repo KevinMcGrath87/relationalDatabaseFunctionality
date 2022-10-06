@@ -13,11 +13,15 @@ def add_album():
     data = request.form
     Album.insertion(data)
     return(redirect('/albums'))
-@app.route('/albums_add')
-def album_form():
-    artists = Artist.get_all()
-    return(render_template('albums_add.html', artists = artists))
-@app.route('/albums_by_artist/<id>/')
+@app.route('/albums_add', methods = ['GET'])
+def swticheroo():
+    return(redirect('/album_form'))
+@app.route('/artist_albums/<id>')
 def albumsByArtist(id):
     albums = Artist.albums_by(id)
     return(render_template('albums.html',albums = albums))
+@app.route('/album_form', methods = ['GET','POST'])
+def album_form():
+    artists = Artist.get_all()
+    # labels = Label.get_all()
+    return(render_template('albums_add.html', artists = artists))
