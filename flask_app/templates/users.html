@@ -10,6 +10,11 @@
 </head>
 <body>
     <body>
+        {%with messages = get_flashed_messages()%}
+            {%for message in messages%}
+            <p>{{message}}</p>
+            {%endfor%}
+        {%endwith%}
         <div >
             <a href = '/new_form'>create new user</a>
         </div>

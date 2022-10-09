@@ -7,8 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    {%with messages = get_flashed_messages()%}
+        {%for message in messages%}
+            <p>{{message}}</p>
+        {%endfor%}
+    {%endwith%}
     <div class = 'container'>
         <p> welcome {{name}}!</p>
+        <form action = '/logout' method = 'post'>
+            <label for = 'logout'>Click to logout and end session</label>
+            <input type = 'submit' name = 'logout'>
+        </form>
     </div>
     
 </body>

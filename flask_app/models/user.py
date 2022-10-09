@@ -1,10 +1,14 @@
+import sys
+sys.path.append('G:/codingdojo\python/flask_mysql/db_connection/records_env')
+
 from flask import flash
-from ..config.mysqlconnection import connectToMySQL
+from flask_app.__init__ import app
+from flask_app.config.mysqlconnection import connectToMySQL
 import re
 REGEX_EMAIL = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-
-
-
+REGEX_PW_FORM = re.compile(r'\S\w+\d+[!@#$/*]+')
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt(app)
 
 class User:
     def __init__(self,data):
@@ -39,6 +43,15 @@ class User:
             return(user[0])
         else:
             return(False)
+    @classmethod
+    def get_user_by_id(cls, data):
+        query = 'SELECT * FROM users WHERE id = %(id)s'
+        data = {'id':data}
+        user = connectToMySQL('music').query_db(query, data)
+        if user:
+            return(user[0])
+        else:
+            return(False)
 
     @staticmethod
     def validate_user(data, valtype):
@@ -51,15 +64,18 @@ class User:
                 is_valid = False
                 break
         if valtype == 'new':
-            if len(data['first_name']) < 5:
-                flash('first name must be at least 5 characters')
+            if len(data['first_name']) < 2:
+                flash('first name must be at least 2 characters')
                 is_valid = False
-            if len(data['last_name'])< 5:
-                flash ('last name must be at least 5 characters')
+            if len(data['last_name'])< 2:
+                flash ('last name must be at least 2 characters')
                 is_valid = False
             # this portion requires regex matching///placeholder for now
             if not REGEX_EMAIL.match(data['email']):
                 flash ('invalid email format')
+                is_valid = False
+            if not REGEX_PW_FORM.match(data['user_password']):
+                flash('password must contain alpha and numeric characters and at least 1 !,#,@,$,/, or * symbold')
                 is_valid = False
             for users in userlist:
                 if data['email'] == users.email:
@@ -71,12 +87,14 @@ class User:
             # this executes if getuser returns and existing user to the database
         else:
             if this_user:
-                print(this_user['user_password'])
-                print(data['user_password'])
-                if not re.match(data['user_password'], this_user['user_password'] ):
+                if not bcrypt.check_password_hash(this_user['user_password'], data['user_password']):
                     flash('user exists: password does not match stored password')
                     is_valid = False
                 if not re.match(data['email'],this_user['email']):
                     flash('user exists: email does not match account')
                     is_valid = False
+            else:
+                flash('input information does not match any user')
+                is_valid = False
         return(is_valid)
+        #  if not bcrypt.check_password_hash(test_user['user_password'], data['user_password']):
