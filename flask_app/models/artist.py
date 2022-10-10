@@ -30,7 +30,6 @@ class Artist:
         artists = []
         for artist in results:
             artists.append(cls(artist))
-        print(artists[1].id)
         return(artists)
     @classmethod
     def delete_artist(cls, id):
@@ -45,6 +44,5 @@ class Artist:
         result = connectToMySQL('music').query_db(query, data)
         for album in result:
             albums.append(album)
-        print(albums)
         return(albums)
 

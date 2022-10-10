@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet", href = "static/style.css">
+
+</head>
+<body>
+    <div class = 'post_form'>
+        <div class = 'user_info'></div>
+        <h3>Post a comment to the wall!</h3>
+        <form class = 'new_post' action = '/post_wall' method = 'post'>
+            <input type = 'text' name ='content' value ='create a post'>
+            <input type = 'hidden' name = 'user_id' value = {{user['id']}}>
+            <input type ='submit'>
+        </form>
+        <!-- here I think the post wall will be created by an iterative function -->
+    </div>
+    <div class = 'wall'>
+        {%if posts%}
+            {% for post in posts%}
+            <div class = 'grid-item'>
+                <div>{{post.user_id}}</div>
+                <div class = 'postbox'>
+                    <p>{{post.content}}</p>
+                </div>
+                    {% for comment in post.comments%}
+                        <div class = 'commentbox'>
+                            <p>{{comment.content}}</p>
+                            <p>{{comment.user_id}}</p>
+                        </div>
+                    {%endfor%}
+                <form class = 'commentform' action = '/comment', method = 'post'>
+                    <input type = 'text' name ='content' value ='comment on this post'>
+                    <input type = 'hidden' value = {{post['id']}} name = 'post_id'>
+                    <input type = 'hidden' value = {{user['id']}} name = 'user_id'>
+                    <input type ='submit'>
+                </form>
+                {%if post.user_id == user['id']%}
+                    <form action = '/delete'>
+                        <button type = 'submit'>delete comment</button>
+                    </form>
+                {%endif%}
+            </div>
+            {%endfor%}
+        {%endif%}
+    </div>
+</body>
+</html>
